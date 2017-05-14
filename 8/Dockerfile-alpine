@@ -6,4 +6,4 @@ RUN apk add --no-cache mysql-client openssh-client rsync \
   && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
   && drush core-status -y
 
-CMD ["drush", "core-cli"]
+CMD ["tail", "-f" ""/dev/null"]
