@@ -1,10 +1,8 @@
-FROM drupaldocker/php-dev:cli
-MAINTAINER drupal-docker
+FROM drupaldocker/php-dev:5.6-alpine-cli
 
-RUN apt-get update && apt-get install -y mysql-client openssh-client rsync \
+RUN apk add --no-cache mysql-client openssh-client rsync \
   && composer global require drush/drush:8.* \
   && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
-  && drush core-status -y \
-  && rm -rf /var/lib/apt/lists/*
+  && drush core-status -y
 
-CMD ["drush", "core-cli"]
+CMD ["tail", "-f", "/dev/null"]
