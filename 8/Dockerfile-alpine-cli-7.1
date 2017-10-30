@@ -28,6 +28,8 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 
+RUN chown -R www-data:www-data /var/www
+
 USER www-data
 
 CMD ["tail", "-f", "/dev/null"]
