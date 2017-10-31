@@ -1,7 +1,7 @@
 FROM digitalpulp/cli:codeship
 LABEL maintainer="digitalpulp"
 
-RUN chown -R www-data:www-data /var/www
+RUN mkdir /var/www && chown -R www-data:www-data /var/www
 
 USER www-data
 
