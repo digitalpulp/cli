@@ -3,6 +3,7 @@ LABEL maintainer="digitalpulp"
 
 COPY .pre-commit-config.yaml /root
 RUN apk add --no-cache bash bash-doc bash-completion \
+   && apk add --no-cache git \
    && apk add --no-cache python3 \
    && python3 -m ensurepip  \
    && rm -r /usr/lib/python*/ensurepip \
@@ -15,9 +16,6 @@ RUN apk add --no-cache bash bash-doc bash-completion \
 
 
 COPY pre-commit.sh /usr/local/bin/
-COPY drupal-*.ini /usr/local/etc/php/conf.d/
-COPY xdebug.ini /usr/local/etc/php/conf.d/
-
 RUN chmod ugo=rx /usr/local/bin/pre-commit.sh
 
 CMD ["tail", "-f", "/dev/null"]
