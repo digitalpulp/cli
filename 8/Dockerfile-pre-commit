@@ -1,0 +1,23 @@
+FROM php:7.1-alpine
+LABEL maintainer="digitalpulp"
+
+COPY .pre-commit-config.yaml /root
+RUN apk add --no-cache bash bash-doc bash-completion \
+   && apk add --no-cache python3 \
+   && python3 -m ensurepip  \
+   && rm -r /usr/lib/python*/ensurepip \
+   && pip3 install --upgrade pip setuptools \
+   && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi \
+   && if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi \
+   && pip install pre-commit \
+   && pre-commit install-hooks \
+   && rm -r /root/.cache \
+
+
+COPY pre-commit.sh /usr/local/bin/
+COPY drupal-*.ini /usr/local/etc/php/conf.d/
+COPY xdebug.ini /usr/local/etc/php/conf.d/
+
+RUN chmod ugo=rx /usr/local/bin/pre-commit.sh
+
+CMD ["tail", "-f", "/dev/null"]
