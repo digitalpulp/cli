@@ -12,7 +12,7 @@ RUN apk add --no-cache bash bash-doc bash-completion \
    && if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi \
    && pip install pre-commit \
    && pre-commit install-hooks \
-   && rm -r /root/.cache \
+   && rm -r /root/.cache
 
 
 COPY pre-commit.sh /usr/local/bin/
