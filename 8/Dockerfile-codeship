@@ -1,6 +1,7 @@
 FROM php:7.1-alpine
 LABEL maintainer="digitalpulp"
 
+COPY pre-commit.sh /root
 RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
    && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip \
@@ -24,6 +25,7 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi \
    && if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi \
    && pip install pre-commit \
+   && pre-commit install-hooks
    && rm -r /root/.cache \
    && composer global require drush/drush:8.1.15 \
    && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
