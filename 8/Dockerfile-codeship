@@ -29,7 +29,10 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
    && drush core-status -y
 
+COPY pre-commit.sh /usr/local/bin/
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
+
+RUN chmod ugo=rx /usr/local/bin/pre-commit.sh
 
 CMD ["tail", "-f", "/dev/null"]
