@@ -6,8 +6,7 @@ COPY  nodesource.sh /usr/local/bin/
 COPY pre-commit.sh /usr/local/bin/
 
 RUN chmod ugo=rx /usr/local/bin/pre-commit.sh \
-   && chmod ugo=rx /usr/local/bin/nodesource.sh \
-   && nodesource.sh \
+   && bash nodesource.sh \
    && apt-get install -y nodejs build-essential \
    && apt-get install -y bash bash-doc bash-completion \
    && apt-get install -y git zip \
