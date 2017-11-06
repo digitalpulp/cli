@@ -21,10 +21,10 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && composer global config minimum-stability dev \
    && composer global config prefer-stable true \
    && composer global require drupal/console-launcher:1.0.2 \
-   && ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush \
-   && ls -s /root/.composer/vendor/bin/drupal /usr/local/bin/drupal \
-   && chmod ugo=rx /root/.composer/vendor/bin/drush \
-   && chmod ugo=rx /root/.composer/vendor/bin/drupal \
+   && ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush \
+   && ln -s /root/.composer/vendor/drupal/console-launcher/bin /usr/local/bin/drupal \
+   && chmod ugo=rx /root/.composer/vendor/drush/drush/drush \
+   && chmod ugo=rx /root/.composer/vendor/drupal/console-launcher/bin \
    && chmod ugo=rx /usr/local/bin/drush \
    && chmod ugo=rx /usr/local/bin/drupal \
    && drush core-status -y
