@@ -12,14 +12,14 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && php composer-setup.php \
    && php -r "unlink('composer-setup.php');" \
    && mv composer.phar /usr/local/bin/composer \
-   && composer global config minimum-stability dev \
-   && composer global config prefer-stable true \
    && echo "export PATH=~/.composer/vendor/bin:\$PATH" >> ~/.bash_profile \
    && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync \
    && apk del .dd-build-deps \
    && apk add --no-cache mysql-client openssh-client rsync \
    && apk add --no-cache bash bash-doc bash-completion \
    && composer global require drush/drush:8.1.15 \
+   && composer global config minimum-stability dev \
+   && composer global config prefer-stable true \
    && composer global require drupal/console-launcher:1.0.2 \
    && ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush \
    && ls -s /root/.composer/vendor/bin/drupal /usr/local/bin/drupal \
