@@ -23,10 +23,10 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && composer global require drupal/console-launcher:1.0.2 \
    && ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush \
    && ls -s /root/.composer/vendor/bin/drupal /usr/local/bin/drupal \
-   && chmod ugo=rx /root/.composer/vendor/bin/drush
-   && chmod ugo=rx /root/.composer/vendor/bin/drupal
-   && chmod ugo=rx /usr/local/bin/drush
-   && chmod ugo=rx /usr/local/bin/drupal
+   && chmod ugo=rx /root/.composer/vendor/bin/drush \
+   && chmod ugo=rx /root/.composer/vendor/bin/drupal \
+   && chmod ugo=rx /usr/local/bin/drush \
+   && chmod ugo=rx /usr/local/bin/drupal \
    && drush core-status -y
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
