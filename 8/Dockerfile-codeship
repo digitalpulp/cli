@@ -18,8 +18,9 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && apk add --no-cache mysql-client openssh-client rsync \
    && apk add --no-cache bash bash-doc bash-completion \
    && composer global require drush/drush:8.1.15 \
-   && composer global require drupal/console-launcher:1.0.2
-   && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
+   && composer global require drupal/console-launcher:1.0.2 \
+   && ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush \
+   && ls -s /root/.composer/vendor/bin/drupal /usr/local/bin/drupal \
    && drush core-status -y
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
