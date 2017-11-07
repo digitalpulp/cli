@@ -9,6 +9,7 @@ RUN composer global require drush/drush:8.1.15 \
    && composer global config prefer-stable true \
    && composer global require drupal/console-launcher:1.0.2 \
    && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
+   && source /home/www-data/.profile
    && drush core-status -y
 
 VOLUME /var/www
