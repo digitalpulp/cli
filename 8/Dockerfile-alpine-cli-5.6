@@ -4,9 +4,8 @@ MAINTAINER digitalpulp
 VOLUME /var/www
 
 RUN addgroup -g 82 -S www-data \
-  && adduser -u 82 -D -S -G www-data www-data
-
-RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
+   && adduser -u 82 -D -S -G www-data www-data \
+   && apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
    && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip \
    && docker-php-ext-install opcache bcmath soap \
@@ -32,5 +31,12 @@ COPY xdebug.ini /usr/local/etc/php/conf.d/
 RUN chown -R www-data:www-data /var/www
 
 USER www-data
+
+RUN composer global require drush/drush:8.1.15 \
+   && composer global config minimum-stability dev \
+   && composer global config prefer-stable true \
+   && composer global require drupal/console-launcher:1.0.2 \
+   && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
+   && drush core-status -y
 
 CMD ["tail", "-f", "/dev/null"]
