@@ -16,18 +16,7 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync \
    && apk del .dd-build-deps \
    && apk add --no-cache mysql-client openssh-client rsync \
-   && apk add --no-cache bash bash-doc bash-completion \
-   && composer global require drush/drush:8.1.15 \
-   && composer global config minimum-stability dev \
-   && composer global config prefer-stable true \
-   && composer global require drupal/console-launcher:1.0.2 \
-   && ln -s /root/.composer/vendor/drush/drush/drush /usr/local/bin/drush \
-   && ln -s /root/.composer/vendor/drupal/console-launcher/bin /usr/local/bin/drupal \
-   && chmod ugo=rx /root/.composer/vendor/drush/drush/drush \
-   && chmod ugo=rx /root/.composer/vendor/drupal/console-launcher/bin \
-   && chmod ugo=rx /usr/local/bin/drush \
-   && chmod ugo=rx /usr/local/bin/drupal \
-   && drush core-status -y
+   && apk add --no-cache bash bash-doc bash-completion
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
