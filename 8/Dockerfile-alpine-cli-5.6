@@ -20,10 +20,7 @@ RUN addgroup -g 82 -S www-data \
    && echo "export PATH=~/.composer/vendor/bin:\$PATH" >> ~/.bash_profile \
    && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync \
    && apk del .dd-build-deps \
-   && apk add --no-cache mysql-client openssh-client rsync \
-   && composer global require drush/drush:8.1.15 \
-   && ln -s ~/.composer/vendor/bin/drush /usr/local/bin/drush \
-   && drush core-status -y
+   && apk add --no-cache mysql-client openssh-client rsync
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
@@ -37,6 +34,7 @@ RUN composer global require drush/drush:8.1.15 \
    && composer global config prefer-stable true \
    && composer global require drupal/console-launcher:1.0.2 \
    && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
+   && source /home/www-data/.profile \
    && drush core-status -y
 
 CMD ["tail", "-f", "/dev/null"]
