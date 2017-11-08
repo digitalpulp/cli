@@ -3,6 +3,8 @@ LABEL maintainer="digitalpulp"
 
 RUN mkdir /var/www && chown -R www-data:www-data /var/www
 
+ENV PATH "/home/www-data/.composer/vendor/bin:${PATH}"
+
 USER www-data
 RUN composer global require drush/drush:8.1.15 \
    && composer global config minimum-stability dev \
