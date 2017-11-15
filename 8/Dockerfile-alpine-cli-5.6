@@ -3,6 +3,8 @@ MAINTAINER digitalpulp
 
 VOLUME /var/www
 
+ENV PATH "/home/www-data/.composer/vendor/bin:${PATH}"
+
 RUN addgroup -g 82 -S www-data \
    && adduser -u 82 -D -S -G www-data www-data \
    && apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
@@ -33,8 +35,6 @@ RUN composer global require drush/drush:8.1.15 \
    && composer global config minimum-stability dev \
    && composer global config prefer-stable true \
    && composer global require drupal/console-launcher:1.0.2 \
-   && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
-   && source /home/www-data/.profile \
    && drush core-status -y
 
 CMD ["tail", "-f", "/dev/null"]
