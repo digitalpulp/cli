@@ -3,15 +3,9 @@ LABEL maintainer="digitalpulp"
 
 RUN mkdir /var/www && chown -R www-data:www-data /var/www
 
-ENV PATH "/home/www-data/.composer/vendor/bin:${PATH}"
+ENV PATH "/var/www/vendor/bin:${PATH}"
 
 USER www-data
-RUN composer global require drush/drush:9.1 \
-   && composer global config minimum-stability dev \
-   && composer global config prefer-stable true \
-   && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
-   && source /home/www-data/.profile \
-   && drush core-status -y
 
 VOLUME /var/www
 
