@@ -6,10 +6,10 @@ RUN mkdir /var/www && chown -R www-data:www-data /var/www
 ENV PATH "/home/www-data/.composer/vendor/bin:${PATH}"
 
 USER www-data
-RUN composer global require drush/drush:8.1.15 \
+RUN composer global require drush/drush:9.1 \
    && composer global config minimum-stability dev \
    && composer global config prefer-stable true \
-   && composer global require drupal/console-launcher:1.0.2 \
+   && composer global require drupal/console-launcher:1.5.0 \
    && echo "PATH=/home/www-data/.composer/vendor/bin:${PATH}; export PATH" > /home/www-data/.profile \
    && source /home/www-data/.profile \
    && drush core-status -y
