@@ -8,5 +8,5 @@ ENV PATH "/var/www/vendor/bin:${PATH}"
 USER www-data
 
 VOLUME /var/www
-ENTRYPOINT []
+
 CMD ["tail", "-f", "/dev/null"]
