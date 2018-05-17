@@ -20,5 +20,8 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
+COPY set-credentials.sh /root
+COPY ssh-add.sh /root
+RUN chmod 655 /root/set-credentials.sh /root/ssh-add.sh
 
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT exec /root/set-credentials.sh
