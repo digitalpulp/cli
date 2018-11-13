@@ -3,6 +3,14 @@ LABEL maintainer="digitalpulp"
 
 RUN mkdir /var/www && chown -R www-data:www-data /var/www
 
+RUN apk add --no-cache --virtual .dd-build-deps zlib-dev cyrus-sasl-dev $PHPIZE_DEPS \
+       && apk add --update --no-cache libmemcached-libs=1.0.18-r1 \
+       && apk add --update --no-cache libmemcached-dev \
+       && pecl install memcached-3.0.4 \
+       && docker-php-ext-enable memcached \
+       && apk add --no-cache libmemcached \
+       && apk del .dd-build-deps
+
 ENV PATH "/var/www/vendor/bin:${PATH}"
 
 USER www-data
