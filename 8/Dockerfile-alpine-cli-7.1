@@ -10,6 +10,7 @@ RUN apk add --no-cache --virtual .dd-build-deps zlib-dev cyrus-sasl-dev $PHPIZE_
        && docker-php-ext-enable memcached \
        && apk add --no-cache libmemcached \
        && apk del .dd-build-deps
+       && apk add --no-cache imagemagick
 
 ENV PATH "/var/www/vendor/bin:${PATH}"
 

@@ -2,6 +2,7 @@ FROM drupaldocker/php-dev:5.6-alpine-cli
 MAINTAINER drupal-docker
 
 RUN apk add --no-cache mysql-client openssh-client rsync \
+  && apk add imagemagick
   && cd ~ \
   && git clone --depth 1 --branch master https://github.com/drush-ops/drush.git drush \
   && cd drush \
