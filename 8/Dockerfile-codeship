@@ -21,6 +21,7 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 COPY ssh-add.sh /root
-RUN chmod 655 /root/ssh-add.sh
+COPY key-place.sh /root
+RUN chmod 655 /root/ssh-add.sh && chmod 655 /root/key-place.sh
 
 CMD ["tail", "-f", "/dev/null"]
