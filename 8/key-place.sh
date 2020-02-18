@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ ! -d "/root/.ssh"]; then
+if [ ! -d "/root/.ssh" ]; then
   mkdir /root/.ssh
 fi
 if [ -n "${GIT_KNOWN_HOST}" ]; then
@@ -8,6 +8,7 @@ fi
 if [ -n "${SSH_PRIVATE_KEY}" ]; then
   echo -e ${SSH_PRIVATE_KEY} >> ${HOME}/.ssh/id_rsa
 fi
-chmod /root/.ssh 0600
-chmod /root/.ssh/known_hosts 0700
-chmod /root/.ssh/id_rsa 0600
+chmod 0700 /root/.ssh/known_hosts
+chmod 0600 /root/.ssh/id_rsa
+chmod 0600 /root/.ssh
+
