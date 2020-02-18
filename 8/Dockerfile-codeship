@@ -16,7 +16,9 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
    && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync patch expect \
    && apk del .dd-build-deps \
    && apk add --no-cache mysql-client openssh-client rsync \
-   && apk add --no-cache bash bash-doc bash-completion
+   && apk add --no-cache bash bash-doc bash-completion \
+   && mkdir /root/.ssh \
+   && echo "StrictHostKeyChecking accept-new" >> /root/.ssh/config
 
 COPY drupal-*.ini /usr/local/etc/php/conf.d/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
