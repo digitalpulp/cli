@@ -2,6 +2,7 @@
 if [ ! -d "/root/.ssh" ]; then
   mkdir /root/.ssh
 fi
+echo "StrictHostKeyChecking accept-new" >> /root/.ssh/config
 if [ -n "${GIT_KNOWN_HOST}" ]; then
   echo -e ${GIT_KNOWN_HOST} >> /root/.ssh/known_hosts
 fi
