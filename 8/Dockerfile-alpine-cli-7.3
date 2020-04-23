@@ -1,0 +1,32 @@
+FROM digitalpulp/cli:codeship-7.3
+LABEL maintainer="digitalpulp"
+
+RUN chown -R www-data:www-data /var/www
+
+RUN apk add --no-cache --virtual .dd-build-deps zlib-dev cyrus-sasl-dev $PHPIZE_DEPS \
+   && apk add --no-cache --update libmemcached-libs \
+   && set -xe \
+   && cd /tmp/ \
+   && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
+   && apk add --no-cache --update --virtual .memcached-deps zlib-dev libmemcached-dev cyrus-sasl-dev \
+   && pecl install igbinary \
+   && ( \
+        pecl install --nobuild memcached && \
+        cd "$(pecl config-get temp_dir)/memcached" && \
+        phpize && \
+        ./configure --enable-memcached-igbinary && \
+        make -j$(nproc) && \
+        make install && \
+        cd /tmp/ \
+    )  \
+   && docker-php-ext-enable igbinary memcached \
+   && rm -rf /tmp/* \
+   && apk del .dd-build-deps
+
+ENV PATH "/var/www/vendor/bin:${PATH}"
+
+USER www-data
+
+VOLUME /var/www
+
+CMD ["tail", "-f", "/dev/null"]
