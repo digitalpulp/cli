@@ -15,6 +15,14 @@ if [ -n "${SSH_PRIVATE_KEY}" ]; then
   echo "SSH key copied."
 fi
 chmod 0600 /root/.ssh
+if [ -n "${GIT_NAME}" ]; then
+  git config --global user.name ${GIT_NAME}
+  echo "git name set."
+fi
+if [ -n "${GIT_EMAIL}" ]; then
+  git config --global user.email ${GIT_EMAIL}
+  echo "git name set."
+fi
 # Invoke ssh-agent if needed.
 if [ -n "${SSHPASS}" ]; then
     # If there is no ssh-agent socket, start the agent and add the key.
