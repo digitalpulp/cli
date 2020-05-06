@@ -21,7 +21,7 @@ if [ -n "${GIT_NAME}" ]; then
 fi
 if [ -n "${GIT_EMAIL}" ]; then
   git config --global user.email ${GIT_EMAIL}
-  echo "git name set."
+  echo "git email set."
 fi
 # Invoke ssh-agent if needed.
 if [ -n "${SSHPASS}" ]; then
