@@ -44,5 +44,5 @@ if [ -n "${SSHPASS}" ]; then
 EOF
     fi
 fi
-# Hold open
-tail -f /dev/null
+
+exec "$@"

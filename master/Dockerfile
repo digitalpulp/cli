@@ -25,3 +25,4 @@ COPY entrypoint.sh /usr/local/bin/
 RUN chmod 655 /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
+CMD ["tail", "-f", "/dev/null"]
