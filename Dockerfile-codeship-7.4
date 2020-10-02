@@ -1,0 +1,29 @@
+FROM php:7.4-alpine
+LABEL maintainer="digitalpulp"
+
+RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
+       && apk add --no-cache --update libmemcached-libs zlib libzip-dev \
+       && apk add --no-cache libpng libjpeg libpq libxml2 libmemcached freetype-dev oniguruma-dev \
+       && docker-php-ext-configure gd --with-freetype --with-jpeg \
+       && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip \
+       && docker-php-ext-install opcache bcmath soap \
+       && pecl install redis-3.1.1 xdebug \
+       && docker-php-ext-enable redis xdebug \
+       && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+       && php -r "if (hash_file('sha384', 'composer-setup.php') === '795f976fe0ebd8b75f26a6dd68f78fd3453ce79f32ecb33e7fd087d39bfeb978342fb73ac986cd4f54edd0dc902601dc') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+       && php composer-setup.php \
+       && php -r "unlink('composer-setup.php');" \
+       && mv composer.phar /usr/local/bin/composer \
+       && echo "export PATH=~/.composer/vendor/bin:\$PATH" >> ~/.bash_profile \
+       && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync patch expect \
+       && apk del .dd-build-deps \
+       && apk add --no-cache mysql-client openssh-client rsync \
+       && apk add --no-cache bash bash-doc bash-completion
+
+COPY drupal-*.ini /usr/local/etc/php/conf.d/
+COPY xdebug.ini /usr/local/etc/php/conf.d/
+COPY ssh-add.sh /root
+COPY key-place.sh /root
+RUN chmod 655 /root/ssh-add.sh && chmod 655 /root/key-place.sh
+
+CMD ["tail", "-f", "/dev/null"]

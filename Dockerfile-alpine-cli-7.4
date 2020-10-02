@@ -1,10 +1,10 @@
-FROM digitalpulp/cli:codeship
+FROM digitalpulp/cli:codeship-7.4-test
 LABEL maintainer="digitalpulp"
 
 RUN chown -R www-data:www-data /var/www
 
 RUN apk add --no-cache --virtual .dd-build-deps zlib-dev cyrus-sasl-dev $PHPIZE_DEPS \
-   && apk add --no-cache --update libmemcached-libs zlib \
+   && apk add --no-cache --update libmemcached-libs \
    && set -xe \
    && cd /tmp/ \
    && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
