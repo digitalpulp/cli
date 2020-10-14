@@ -4,6 +4,7 @@ LABEL maintainer="digitalpulp"
 RUN chown -R www-data:www-data /var/www
 
 RUN apk add --no-cache --virtual .dd-build-deps zlib-dev cyrus-sasl-dev $PHPIZE_DEPS \
+   && apk add imagemagick \
    && apk add --no-cache --update libmemcached-libs \
    && set -xe \
    && cd /tmp/ \
