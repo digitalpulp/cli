@@ -1,4 +1,4 @@
-FROM php:7.4-alpine
+FROM php:7.4.12-cli-alpine
 LABEL maintainer="digitalpulp"
 
 RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
