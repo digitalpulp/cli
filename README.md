@@ -6,8 +6,8 @@ Tags and releases listed on [Docker Hub](https://hub.docker.com/r/digitalpulp/cl
 
 Tags for these containers have been simplifed to just the php version. The most recent are:
 
-- 7.3.22
-- 7.4.10
+- 7.3.27
+- 7.4.16
 - codeship-7.3
 - codeship-7.4
 
