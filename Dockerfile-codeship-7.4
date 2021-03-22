@@ -2,7 +2,7 @@ FROM php:7.4.16-cli-alpine
 LABEL maintainer="digitalpulp"
 
 RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev postgresql-dev libxml2-dev $PHPIZE_DEPS \
-       && apk add --no-cache --update libmemcached-libs zlib libzip-dev \
+       && apk add --no-cache --update libmemcached-libs zlib libzip-dev icu-dev \
        && apk add --no-cache libpng libjpeg libpq libxml2 libmemcached freetype-dev oniguruma-dev \
        && docker-php-ext-configure gd --with-freetype --with-jpeg \
        && docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip \
