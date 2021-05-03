@@ -15,6 +15,7 @@ RUN apk add --no-cache --virtual .dd-build-deps libpng-dev libjpeg-turbo-dev pos
        && php composer-setup.php --install-dir=/usr/local/bin --filename=composer --version=1.10.20 \
        && php -r "unlink('composer-setup.php');" \
        && echo "export PATH=~/.composer/vendor/bin:\$PATH" >> ~/.bash_profile \
+       && echo "StrictHostKeyChecking accept-new" >> /root/.ssh/config \
        && apk add --no-cache sudo git libpng libjpeg libpq libxml2 mysql-client openssh-client rsync patch expect \
        && apk del .dd-build-deps \
        && apk add --no-cache mysql-client openssh-client rsync \
